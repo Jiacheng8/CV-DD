@@ -1,6 +1,6 @@
 # Dataset Distillation via Committee Voting (CV-DD)
 
-[Jiacheng Cui](https://github.com/Jiacheng8), Zhaoyi Li, [Xiaochen Ma](https://ma.xiaochen.world/), Xinyue Bi, [Yaxin Luo](https://yaxin9luo.github.io/), [Zhiqiang Shen](https://zhiqiangshen.com/)
+Jiacheng Cui, Zhaoyi Li, Xiaochen Ma, Xinyue Bi, Yaxin Luo, Zhiqiang Shen
 
 [`arXiv`](https://arxiv.org/abs/2501.07575) | [`BibTeX`](#bibliography)
 
