@@ -30,7 +30,40 @@ class="center">
 Dataset distillation aims to synthesize a smaller, representative dataset that preserves the essential properties of the original data, enabling efficient model training with reduced computational resources. Prior work has primarily focused on improving the alignment or matching process between original and synthetic data, or on enhancing the efficiency of distilling large datasets. In this work, we introduce Committee Voting for Dataset Distillation (CV-DD), a novel and orthogonal approach that leverages the collective wisdom of multiple models to create high-quality distilled datasets. We start by showing how to establish a strong baseline that already achieves state-of-the-art accuracy through leveraging recent advancements and thoughtful adjustments in model design and optimization processes. By integrating distributions and predictions from a committee of models, our method captures a broader range of data features, mitigates model-specific biases, and enhances generalization. This voting-based strategy not only promotes diversity and robustness within the distilled dataset but also significantly reduces overfitting, resulting in improved performance on post-eval tasks. Extensive experiments across various datasets and IPCs (images per class) demonstrate that Committee Voting leads to more reliable and adaptable distilled data compared to single/multi-model distillation methods, demonstrating its potential for efficient and accurate dataset distillation.
 
 ## Distilled Images
-The distilled images for different datasets can be found [here](https://drive.google.com/drive/folders/1DHFe43l-R0GZR9poAP5YjAFzhaBtUw2a?usp=drive_link). We provide IPC values of 1, 10, and 50 for CV-DD, and IPC50 for $\text{SRe}^2\text{L}^{++}$. If you need IPC=1 or 10, you can simply sample them from the IPC50 dataset.
+The distilled images for different datasets can be found [here](https://drive.google.com/drive/folders/1DHFe43l-R0GZR9poAP5YjAFzhaBtUw2a?usp=drive_link). We provide IPC values of 1, 10, and 50 for CV-DD, and IPC50 for $\text{SRe}^2\text{L}^{++}$. If you need IPC=1 or 10, you can simply sample them from the IPC50 dataset. The code is following:
+```python
+import os
+import shutil
+
+def sample_images(source_dir, target_dir, num_images=10):
+    os.makedirs(target_dir, exist_ok=True)
+
+    for subdir in sorted(os.listdir(source_dir)):
+        sub_path = os.path.join(source_dir, subdir)
+        if os.path.isdir(sub_path):
+            images = sorted([f for f in os.listdir(sub_path) if f.endswith(('.jpg', '.png', '.jpeg'))])
+            
+            if len(images) >= num_images:
+                sampled_images = images[:num_images]
+                
+                target_subdir = os.path.join(target_dir, subdir)
+                os.makedirs(target_subdir, exist_ok=True)
+                
+                for image in sampled_images:
+                    src_image_path = os.path.join(sub_path, image)
+                    dest_image_path = os.path.join(target_subdir, image)
+                    shutil.copy(src_image_path, dest_image_path)
+            else:
+                print(f"sub-directory {subdir} don't contain {num_images} images, skipping...")
+
+
+source_directory = "" # Remember to change me to desired directory
+target_directory = "" # Remember to change me to desired directory
+sample_number = 0 # the number of sampled files
+sample_images(source_directory, target_directory, num_images=sample_number)
+
+```
+
 
 ## Overall Configuration
 To ensure the functionality of the code, please kindly download some required materials from the [Google Drive Link](https://drive.google.com/drive/folders/1TQ8B2S8CGoMTt175a-wVN-iiLLzD3oz8?usp=drive_link) and store them in a specific folder. The name of this folder is not limited. However, in this folder, we expect several sub-folders:
