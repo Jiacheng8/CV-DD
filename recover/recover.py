@@ -14,7 +14,6 @@ import utils_recover as utils_re
 import pandas as pd
 import time
 import torch.nn.functional as F
-from torch.cuda.amp import GradScaler, autocast
 
 
 def get_images(args, hook_for_display, device, num_call, is_first_ipc):
@@ -34,8 +33,6 @@ def get_images(args, hook_for_display, device, num_call, is_first_ipc):
         start_index = args.start_index
     else:
         start_index = 0
-
-    scaler = GradScaler()  # Initialize GradScaler for mixed precision training
 
     for kk in range(start_index, args.ncls, batch_size):
         start_label = kk
@@ -79,28 +76,26 @@ def get_images(args, hook_for_display, device, num_call, is_first_ipc):
 
             optimizer.zero_grad()
 
-            with autocast():  # Enable mixed precision
-                ce_lis = []
-                for model in recover_model_list:
-                    outputs_recover = model(inputs_jit)
-                    loss_ce = criterion(outputs_recover, targets)
-                    ce_lis.append(loss_ce)
+            ce_lis = []
+            for model in recover_model_list:
+                outputs_recover = model(inputs_jit)
+                loss_ce = criterion(outputs_recover, targets)
+                ce_lis.append(loss_ce)
 
-                loss_BN_lis = []
-                for (id, BN_hook) in enumerate(BN_hooks):
-                    rescale = [args.first_bn_multiplier] + [1. for _ in range(len(BN_hook)-1)]
-                    curr_loss_BN = sum([mod.r_feature * rescale[idx] for (idx, mod) in enumerate(BN_hook)])
-                    loss_BN_lis.append(curr_loss_BN)
-                
-                loss = 0
-                for (idx, weight) in enumerate(weight_list):
-                    curr_BN_loss = args.r_bn * loss_BN_lis[idx]
-                    curr_ce = ce_lis[idx]
-                    loss += weight * (curr_ce + curr_BN_loss)
+            loss_BN_lis = []
+            for (id, BN_hook) in enumerate(BN_hooks):
+                rescale = [args.first_bn_multiplier] + [1. for _ in range(len(BN_hook)-1)]
+                curr_loss_BN = sum([mod.r_feature * rescale[idx] for (idx, mod) in enumerate(BN_hook)])
+                loss_BN_lis.append(curr_loss_BN)
+            
+            loss = 0
+            for (idx, weight) in enumerate(weight_list):
+                curr_BN_loss = args.r_bn * loss_BN_lis[idx]
+                curr_ce = ce_lis[idx]
+                loss += weight * (curr_ce + curr_BN_loss)
 
-            scaler.scale(loss).backward()  # Scale the loss for mixed precision
-            scaler.step(optimizer)  # Update model parameters
-            scaler.update()  # Adjust scaling factor
+            loss.backward()
+            optimizer.step()
 
             inputs.data = utils_re.clip(inputs.data, args)
 
@@ -371,7 +366,6 @@ def main_syn(args, device, ipc_id, is_first_ipc=False):
 if __name__ == '__main__':
     args = parse_args()
     print(args)
-    print("using half")
     #set up device
     device = 'cpu'
     if torch.cuda.is_available():

@@ -31,7 +31,7 @@ python -u $PARENT_DIR/recover_test.py \
     --voter-type prior\
     --selected-size 2 \
     --lr 0.25 \
-    --iteration 200 \
+    --iteration 4000 \
     --r-bn 0.01 \
     --store-best-images \
     --ipc-start $Start_ipc \
