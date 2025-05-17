@@ -12,7 +12,6 @@ python $PARENT_DIR/relabel.py \
     --syn-data-path $Generated_Path/generated_data/syn_data/$Dataset_Name/${mode} \
     --fkd-path $Generated_Path/generated_data/new_labels/$Dataset_Name/${mode} \
     --model-pool-dir $Generated_Path/offline_models/$Dataset_Name \
-    --online \
     --gpu 0 \
     -b $bs \
     -j 2 \

@@ -13,6 +13,8 @@ Model_Name=ResNet18
 ODP=${Generated_Data_Path}/syn_data/${Dataset_Name}/${mode}
 FKD=${Generated_Data_Path}/new_labels/${Dataset_Name}/${mode}_bs${bs}_ipc${ipc}
 OPD=${Generated_Data_Path}/validate_output
+#Enter the path to the validation directory (desgined for the calculating prior performance)
+val_dir=
 
 mkdir -p $SCRIPT_DIR/logs
 EXP_NAME="${mode}_ipc${ipc}_${Model_Name}"

@@ -25,6 +25,7 @@ python -u $PARENT_DIR/recover.py \
     --exp-name  $EXP_NAME\
     --apply-data-augmentation \
     --dataset-name $Dataset_Name \
+    --pretrained-model-type offline \
     --batch-size $bs \
     --syn-data-path $syn_data_dir \
     --patch-dir $patch_dir \

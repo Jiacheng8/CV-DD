@@ -11,7 +11,6 @@ source $SCRIPT_DIR/constants.sh
 python $PARENT_DIR/relabel.py \
     --syn-data-path $Generated_Path/generated_data/syn_data/$Dataset_Name/${mode} \
     --fkd-path $Generated_Path/generated_data/new_labels/$Dataset_Name/${mode} \
-    --online \
     --teacher-model-name $teacher \
     --gpu 0 \
     -b $bs \

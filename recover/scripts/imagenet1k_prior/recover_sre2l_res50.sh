@@ -24,11 +24,11 @@ Log_NAME="${EXP_NAME}_ipc_${Start_ipc}_${End_ipc}_tmux_${tmux_number}"
 python -u $PARENT_DIR/recover.py \
     --exp-name  $EXP_NAME\
     --apply-data-augmentation \
+    --pretrained-model-type offline \
     --dataset-name $Dataset_Name \
     --batch-size $bs \
     --syn-data-path $syn_data_dir \
     --patch-dir $patch_dir \
-    --pretrained-model-type online \
     --model-setting 0 \
     --sre2l-model $Model_Name \
     --voter-type equal \

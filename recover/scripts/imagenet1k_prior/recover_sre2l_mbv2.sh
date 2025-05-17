@@ -28,7 +28,7 @@ python -u $PARENT_DIR/recover.py \
     --batch-size $bs \
     --syn-data-path $syn_data_dir \
     --patch-dir $patch_dir \
-    --pretrained-model-type online \
+    --pretrained-model-type offline \
     --model-setting 0 \
     --sre2l-model $Model_Name \
     --voter-type equal \
