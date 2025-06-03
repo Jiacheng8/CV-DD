@@ -95,7 +95,7 @@ def load_val_loader(args):
             transforms.ToTensor(),
             transforms.Normalize(mean=args.mean_norm, std=args.std_norm)
         ])
-    elif args.dataset_name == "imagenet1k" or args.dataset_name == "imagenet100" or args.dataset_name=='imagenet-nette':
+    elif args.dataset_name == "imagenet1k" or args.dataset_name=='imagenet-nette':
         transform_test = transforms.Compose([
             transforms.Resize(256),
             transforms.CenterCrop(224),
@@ -112,7 +112,6 @@ def load_val_loader(args):
     
     test_set = torchvision.datasets.ImageFolder(root=args.val_dir, transform=transform_test)
 
-    # load dataset for CIFAR-100 
     testloader = torch.utils.data.DataLoader(
         test_set, batch_size=256, shuffle=False, num_workers=2,pin_memory=True)
     return testloader

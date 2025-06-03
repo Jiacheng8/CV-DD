@@ -15,7 +15,7 @@ python $PARENT_DIR/relabel.py \
     --model-pool-dir $Generated_Path/offline_models/$Dataset_Name \
     --teacher-model-name $teacher \
     --gpu 0 \
-    -b $bs \
+    -b 10\
     -j 2 \
     --dataset-name $Dataset_Name \
     --epochs 300 \

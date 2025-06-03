@@ -15,7 +15,7 @@ python $PARENT_DIR/relabel.py \
     --online \
     --teacher-model-name $teacher \
     --gpu 0 \
-    -b 50 \
+    -b $bs \
     -j 2 \
     --dataset-name $Dataset_Name \
     --epochs 300 \

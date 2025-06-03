@@ -15,11 +15,9 @@ from torchvision.transforms import InterpolationMode
 from utils_validate import AverageMeter, accuracy, get_parameters, load_val_loader, load_small_dataset_model
 # It is imported for you to access and modify the PyTorch source code (via Ctrl+Click), more details in README.md
 from torch.utils.data._utils.fetch import _MapDatasetFetcher
-# 获取当前脚本的目录
 current_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(current_dir)
 sys.path.append(parent_dir)
-# 获取当前脚本的目录
 from models import *
 from relabel.utils_fkd import (ComposeWithCoords, ImageFolder_FKD_MIX,
                                RandomHorizontalFlipWithRes,
@@ -200,9 +198,7 @@ def get_args():
     return args
 
 def is_special_epoch(epoch, total_epochs):
-    # 判断是否在最后的0.8个epoch
     in_last_80_percent = epoch >= int(total_epochs * 0.8)
-    # 判断尾数是否是9或为最后一个epoch
     ends_with_9_or_last = (epoch % 10 == 9) or (epoch == total_epochs - 1)
     return in_last_80_percent and ends_with_9_or_last
 
