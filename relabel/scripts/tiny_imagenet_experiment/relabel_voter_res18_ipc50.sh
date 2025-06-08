@@ -1,5 +1,4 @@
-mode=voter
-teacher=ResNet18
+mode=cvdd
 ipc=50
 
 # Overall Configuration
@@ -13,7 +12,9 @@ python $PARENT_DIR/relabel.py \
     --syn-data-path $Generated_Path/generated_data/syn_data/$Dataset_Name/${mode}_ipc${ipc} \
     --fkd-path $Generated_Path/generated_data/new_labels/$Dataset_Name/${mode} \
     --model-pool-dir $Generated_Path/offline_models/$Dataset_Name \
-    --teacher-model-name $teacher \
+    --multi-model \
+    --model-choice ResNet18 ResNet50 ShuffleNetV2 MobileNetV2 Densenet121 \
+    --model-weight 46.5 28.3 43.6 44.8 41.5 \
     --gpu 0 \
     -b $bs \
     -j 2 \

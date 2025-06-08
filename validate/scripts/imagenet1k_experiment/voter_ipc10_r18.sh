@@ -5,17 +5,18 @@ PARENT_DIR="$(dirname "$PARENT_DIR")"
 
 source $SCRIPT_DIR/constants.sh
 
-mode=voter
+mode=cvdd_prior_T5
 ipc=10
 Model_Name=ResNet18
 
+export CUDA_VISIBLE_DEVICES=5
 #ODP
 ODP=${Generated_Data_Path}/syn_data/${Dataset_Name}/${mode}_ipc${ipc}
-FKD=${Generated_Data_Path}/new_labels/${Dataset_Name}/${mode}_bs${bs}_ipc${ipc}
+FKD=${Generated_Data_Path}/new_labels/${Dataset_Name}/${mode}_multi_label_prior_bs${bs}_ipc${ipc}
 OPD=${Generated_Data_Path}/validate_output
 
 mkdir -p $SCRIPT_DIR/logs
-EXP_NAME="${mode}_ipc${ipc}_${Model_Name}"
+EXP_NAME="${mode}_ipc${ipc}_${Model_Name}_7_label_prior"
 WANDB_PROJECT="${Dataset_Name}_${Model_Name}"
 python $PARENT_DIR/train_fkd.py \
     --model $Model_Name \
@@ -31,6 +32,6 @@ python $PARENT_DIR/train_fkd.py \
     --gradient-accumulation-steps 2 \
     --mix-type 'cutmix' \
     --cos \
-    -j 2 \
+    -j 10 \
     -T 20 \
-    --val-dir $val_dir > $SCRIPT_DIR/logs/$EXP_NAME.log 2>$SCRIPT_DIR/logs/$EXP_NAME.error
+    --val-dir /data/hulk/jiacheng/Common/test_data/imagenet1k > $SCRIPT_DIR/logs/$EXP_NAME.log 2>$SCRIPT_DIR/logs/$EXP_NAME.error

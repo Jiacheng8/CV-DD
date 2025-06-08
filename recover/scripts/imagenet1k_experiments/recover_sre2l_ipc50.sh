@@ -15,6 +15,7 @@ source $SCRIPT_DIR/constants.sh
 syn_data_dir=$Main_Data_Path/generated_data/syn_data/$Dataset_Name
 patch_dir=$Main_Data_Path/patches/$Dataset_Name
 
+
 # Create logs directory
 mkdir -p $SCRIPT_DIR/logs
 

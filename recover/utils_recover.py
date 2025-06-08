@@ -216,11 +216,10 @@ def initialize_patch_data(start_label_idx, end_label_idx, args, num_call):
     for i in range(start_label_idx, end_label_idx):
         current_class_name = format_int_to_str(i)
         current_class_dir = os.path.join(patch_dir, current_class_name)
-        all_image_files = glob.glob(f"{current_class_dir}/*.jpg",recursive=False)
-        chosen_image_files = random.sample(all_image_files, 1)
-
-        final_img = normalize(cv2.imread(chosen_image_files[0]),args)
-        final_img_display = cv2.imread(chosen_image_files[0])
+        curr_file_name = os.path.join(current_class_dir, f'class{current_class_name}_id{"{:05}".format(num_call)}.jpg')
+        final_img = normalize(cv2.imread(curr_file_name),args)
+        final_img_display = cv2.imread(curr_file_name)
+        
     
         # save the img to the initialisation dir to show the quality of the patches
         # you can comment this line if you don't want to see the quality

@@ -1,4 +1,4 @@
-EXP_NAME="voter_ipc1"
+EXP_NAME="cvdd_ipc1"
 
 # change me if you want to run on different GPUS
 Start_ipc=0

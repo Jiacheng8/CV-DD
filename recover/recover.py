@@ -257,7 +257,7 @@ def parse_args():
         args.ncls = 100
         args.jitter = 4
         args.input_size = 32
-        args.model_prior_weight_dict = {'ResNet18':64, 'ResNet50':60.58, 'ShuffleNetV2':51.62, 'MobileNetV2':59.43, 'Densenet121':56.36}
+        args.model_prior_weight_dict = {'ResNet18':64, 'ResNet50':60.6, 'ShuffleNetV2':51.6, 'MobileNetV2':59.4, 'Densenet121':56.4}
     
     # checked 
     elif args.dataset_name == 'cifar10':
@@ -266,7 +266,7 @@ def parse_args():
         args.ncls = 10
         args.input_size = 32
         args.jitter = 4
-        args.model_prior_weight_dict = {'ResNet18':63.01, 'ResNet50':65.25, 'ShuffleNetV2':68.52, 'MobileNetV2':67.61, 'Densenet121':67.57}
+        args.model_prior_weight_dict = {'ResNet18':63, 'ResNet50':65.3, 'ShuffleNetV2':68.5, 'MobileNetV2':67.6, 'Densenet121':67.4}
         
     elif args.dataset_name == 'imagenet1k':
         args.mean_norm = [0.485, 0.456, 0.406]
@@ -274,7 +274,7 @@ def parse_args():
         args.ncls = 1000
         args.jitter = 32
         args.input_size = 224
-        args.model_prior_weight_dict = {'ResNet18':43.1, 'ResNet50':41.37, 'ShuffleNetV2':43.73, 'MobileNetV2':39.15, 'Densenet121':38.9}
+        args.model_prior_weight_dict = {'ResNet18':56.4, 'ResNet50':42.3, 'ShuffleNetV2':52.5, 'MobileNetV2':44.2, 'Densenet121':40.6}
         
     elif args.dataset_name == 'imagenet-nette':
         args.mean_norm = [0.485, 0.456, 0.406]

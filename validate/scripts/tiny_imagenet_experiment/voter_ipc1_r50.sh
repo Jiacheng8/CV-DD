@@ -5,7 +5,7 @@ PARENT_DIR="$(dirname "$PARENT_DIR")"
 
 source $SCRIPT_DIR/constants.sh
 
-mode=voter
+mode=cvdd
 ipc=1
 Model_Name=ResNet50
 

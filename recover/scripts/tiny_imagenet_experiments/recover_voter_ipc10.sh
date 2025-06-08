@@ -1,4 +1,4 @@
-EXP_NAME="voter_ipc10"
+EXP_NAME="cvdd_ipc10"
 
 # change me if you want to run on different GPUS
 Start_ipc=0
@@ -17,7 +17,7 @@ model_pool_dir=$Main_Data_Path/offline_models/$Dataset_Name
 
 # Create logs directory
 mkdir -p $SCRIPT_DIR/logs
-export CUDA_VISIBLE_DEVICES=4
+
 # Script Configuration
 Log_NAME="${EXP_NAME}_ipc_${Start_ipc}_${End_ipc}_tmux_${tmux_number}"
 python -u $PARENT_DIR/recover.py \

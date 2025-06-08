@@ -109,9 +109,9 @@ def load_val_loader(args):
         ])
     else:
         raise NotImplementedError(f"dataset {args.dataset_name} not implemented")
-    
+    print(args.val_dir)
     test_set = torchvision.datasets.ImageFolder(root=args.val_dir, transform=transform_test)
 
     testloader = torch.utils.data.DataLoader(
-        test_set, batch_size=256, shuffle=False, num_workers=2,pin_memory=True)
+        test_set, batch_size=256, shuffle=False, num_workers=10,pin_memory=True)
     return testloader

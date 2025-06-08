@@ -6,8 +6,9 @@ PARENT_DIR="$(dirname "$PARENT_DIR")"
 source $SCRIPT_DIR/constants.sh
 
 mode=cvdd
-ipc=10
+ipc=1
 Model_Name=ResNet101
+bs=10
 
 #ODP
 ODP=${Generated_Data_Path}/syn_data/${Dataset_Name}/${mode}_ipc${ipc}

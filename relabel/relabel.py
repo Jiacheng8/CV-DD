@@ -35,7 +35,7 @@ parser.add_argument('--model-choice', nargs='+',
                     help='A list containing the choices of the compare model')
 parser.add_argument('--model-weight', nargs='+', 
                     help='A list containing the choices of the compare model')
-parser.add_argument('--eval-mode', action='store_true',
+parser.add_argument('--eval-mode', type=str,default="F",
                     help='whether to use the evaluation mode or not')
 parser.add_argument('--teacher-model-name', type=str,
                     help='teacher model name')
@@ -114,6 +114,11 @@ def main():
         args.ncls = 1000
         args.input_size = 224
     elif args.dataset_name == 'imagenet-nette':
+        args.mean_norm = [0.485, 0.456, 0.406]
+        args.std_norm = [0.229, 0.224, 0.225]
+        args.ncls = 10
+        args.input_size = 224
+    elif args.dataset_name == 'imagewoof':
         args.mean_norm = [0.485, 0.456, 0.406]
         args.std_norm = [0.229, 0.224, 0.225]
         args.ncls = 10
@@ -272,8 +277,15 @@ def main_worker(gpu, ngpus_per_node, args):
         train_dataset, batch_size=args.batch_size, shuffle=(sampler is None), sampler=sampler,
         num_workers=args.workers, pin_memory=True,
         worker_init_fn=set_worker_sharing_strategy)
+    
+    if args.eval_mode == 'T':
+        for model in teacher_model_lis:
+            model.eval()
+        print('Not Applying BSSL')
+    else:
+        print("Applying BSSL")
 
-    for epoch in tqdm(range(args.epochs)):
+    for epoch in tqdm([i for i in range(args.epochs)]):
         dir_path = os.path.join(args.fkd_path, 'epoch_{}'.format(epoch))
         if not os.path.exists(dir_path):
             os.makedirs(dir_path)
@@ -288,9 +300,10 @@ def save(train_loader, model_lis, dir_path, args):
         weights = [1.0 / len(model_lis)] * len(model_lis)
     else:
         w = np.array([float(w) for w in args.model_weight])
-        temperature = 10  # 您可以调整此值来控制平滑度
+        temperature = 10
         w = w / temperature
         weights = np.exp(w) / np.sum(np.exp(w))
+        
 
     """Generate soft labels and save"""
     for batch_idx, (images, target, flip_status, coords_status) in enumerate(train_loader):
@@ -301,8 +314,6 @@ def save(train_loader, model_lis, dir_path, args):
         
         total_output = []
         for idx, _model in enumerate(model_lis):
-            if args.eval_mode:
-                _model.eval()
             cat_output = []
             output = _model(origin_images[:split_point])
             cat_output.append(output)

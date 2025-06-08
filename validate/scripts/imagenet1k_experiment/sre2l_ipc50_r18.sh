@@ -9,6 +9,7 @@ mode=sre2l
 ipc=50
 Model_Name=ResNet18
 
+
 #ODP
 ODP=${Generated_Data_Path}/syn_data/${Dataset_Name}/${mode}_ipc${ipc}
 FKD=${Generated_Data_Path}/new_labels/${Dataset_Name}/${mode}_bs${bs}_ipc${ipc}

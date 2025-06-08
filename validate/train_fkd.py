@@ -207,7 +207,7 @@ def main():
     
     # set up wandb
     wandb.login(key=args.wandb_api_key)
-    wandb.init(project=args.wandb_project, dir="./")
+    wandb.init(project=args.wandb_project, entity="CVDD", dir="./")
     wandb.run.name = args.exp_name
 
     if not torch.cuda.is_available():
