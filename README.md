@@ -126,13 +126,10 @@ Our Top-1 accuracy (%) under different IPC settings across various datasets, com
 If you find this repository helpful for your project, please consider citing our work:
 
 ```
-@misc{cui2025datasetdistillationcommitteevoting,
-      title={Dataset Distillation via Committee Voting}, 
-      author={Jiacheng Cui and Zhaoyi Li and Xiaochen Ma and Xinyue Bi and Yaxin Luo and Zhiqiang Shen},
-      year={2025},
-      eprint={2501.07575},
-      archivePrefix={arXiv},
-      primaryClass={cs.CV},
-      url={https://arxiv.org/abs/2501.07575}, 
+@article{cui2025dataset,
+  title={Dataset distillation via committee voting},
+  author={Cui, Jiacheng and Li, Zhaoyi and Ma, Xiaochen and Bi, Xinyue and Luo, Yaxin and Shen, Zhiqiang},
+  journal={arXiv preprint arXiv:2501.07575},
+  year={2025}
 }
 ```
